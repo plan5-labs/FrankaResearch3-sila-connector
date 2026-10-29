@@ -1,0 +1,161 @@
+[project]
+name = "unitelabs-fr3-connector"
+version = "0.1.0"
+description = "Franka Research 3 SiLA 2 connector with a kinematic simulator and a franky-based hardware backend."
+readme = "README.md"
+authors = [{name = "Kozo Nishida"},]
+maintainers = [
+   {name = "Kozo Nishida"},
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
+    "Topic :: System :: Hardware",
+]
+requires-python=">=3.10,<4.0"
+dependencies=[
+    "unitelabs-cdk~=0.17.1",
+    "numpy>=1.26",
+    "typing-extensions~=4.12",
+]
+
+[project.optional-dependencies]
+robot = [
+    # franky ships Linux x86_64 wheels only; FCI also needs a real-time Linux kernel.
+    "franky-control>=2.0; sys_platform == 'linux'",
+]
+test = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+]
+dev = [
+    "unitelabs-cdk[dev]",
+    "ruff",
+    "pre-commit",
+    "commitizen",
+]
+
+[project.scripts]
+fr3-connector = "unitelabs.fr3_connector.__main__:main"
+
+[project.urls]
+Repository = "https://github.com/plan5-labs/FrankaResearch3-sila-connector"
+Documentation = "https://github.com/plan5-labs/FrankaResearch3-sila-connector/blob/main/docs/ARCHITECTURE.md"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "--color=yes"
+
+[tool.ruff]
+src = ["src", "tests"]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "F",      # pyflakes (ruff default)
+    "E",      # pycodestyle: error (ruff default: E4, E7, E9)
+    "A",      # flake8-builtins
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "ARG",    # flake8-unused-arguments
+    "ASYNC",  # flake8-async
+    "D",      # pydocstyle
+    "D213",   # gDoc-style tweak: multi-line-summary-second-line
+    "D401",   # gDoc-style tweak: non-imperative-mood
+    "ANN001", # flake8-annotations: missing-type-function-argument
+    "ANN201", # flake8-annotations: missing-return-type-undocumented-public-function
+    "ANN202", # flake8-annotations: missing-return-type-private-function
+    "ANN401", # flake8-annotations: any-type
+    "EM",     # flake8-errmsg
+    "BLE",    # flake8-blind-except
+    "PIE",    # flake8-pie
+    "SIM",    # flake8-simplify
+    "PERF",   # perflint: performance
+    "RET",    # flake8-return
+    "RSE",    # flake8-raise
+    "RUF",    # ruff-specific-rules
+    "ISC",    # flake8-implicit-str-concat
+    "PTH",    # flake8-use-pathlib
+    "PLW",    # pylint warning
+    "UP",     # py-upgrade
+    "ERA",    # no commented-out code
+    "FIX",    # no FIXME comments
+    "T201",   # no print calls for debugging
+    "S101",   # no assert
+]
+ignore = [
+    "D100",    # undocumented-public-module
+    "D104",    # undocumented-public-package
+    "D105",    # undocumented-magic-method
+    "D107",    # undocumented-public-init
+    "D202",    # blank-line-after-function
+    "D212",    # multi-line-summary-first-line
+    "D418",    # overload-with-docstring
+    "PERF203", # try-except-in-loop
+]
+
+[tool.ruff.lint.per-file-ignores]
+# ignore documentation, typing, and assertions in tests and examples
+"!src/**.py" = ["D", "ANN", "ARG", "S101", "T201"]
+# ignore parameter name warnings in feature files
+"src/unitelabs/fr3_connector/features/**/**.py" =  ["D417"]
+
+[tool.ruff.lint.flake8-annotations]
+mypy-init-return = false
+
+[tool.ruff.lint.flake8-comprehensions]
+allow-dict-calls-with-keyword-arguments = true
+
+[tool.ruff.lint.flake8-unused-arguments]
+ignore-variadic-names = true
+
+[tool.ruff.lint.pycodestyle]
+ignore-overlong-task-comments = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+ignore-var-parameters = true
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+docstring-code-line-length = 80
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_scheme = "semver2"
+version_provider = "uv"
+major_version_zero = true
+bump_message = "chore: bump version $current_version → $new_version"
+
+[tool.coverage.report]
+exclude_also = [
+    "@typing.overload",
+    "if typing.TYPE_CHECKING:",
+    "\\.\\.\\.",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/unitelabs"]
+
+[tool.uv]
+default-groups = "all"
+prerelease = "if-necessary"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

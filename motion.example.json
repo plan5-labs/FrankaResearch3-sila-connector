@@ -1,0 +1,23 @@
+{
+  "simulation_mode": false,
+  "robot_host": "172.16.0.2",
+  "realtime_config": "enforce",
+  "enable_motion": true,
+  "enable_gripper": true,
+  "default_dynamics_factor": 0.05,
+  "max_dynamics_factor": 0.1,
+  "gripper_speed": 0.05,
+  "gripper_force": 20.0,
+  "minimum_tcp_height": 0.05,
+  "named_positions": {
+    "Pregrasp": [0.0, -0.3, 0.0, -2.2, 0.0, 1.9, 0.785]
+  },
+  "sila_server": {
+    "hostname": "127.0.0.1",
+    "port": 50054,
+    "tls": false,
+    "name": "Franka Research 3 (Motion Enabled)"
+  },
+  "cloud_server_endpoint": [],
+  "discovery": null
+}

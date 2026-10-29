@@ -1,0 +1,16 @@
+{
+  "simulation_mode": true,
+  "simulation_time_scale": 1.0,
+  "simulated_object_width": 0.03,
+  "named_positions": {
+    "Pregrasp": [0.0, -0.3, 0.0, -2.2, 0.0, 1.9, 0.785]
+  },
+  "sila_server": {
+    "hostname": "127.0.0.1",
+    "port": 50052,
+    "tls": false,
+    "name": "Franka Research 3 (Simulation)"
+  },
+  "cloud_server_endpoint": [],
+  "discovery": null
+}
