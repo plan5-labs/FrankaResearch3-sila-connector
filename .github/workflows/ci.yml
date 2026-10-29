@@ -1,0 +1,25 @@
+name: Offline validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: uv sync --locked --all-extras
+      - name: Validate
+        run: |
+          uv run --no-sync ruff format --check src/
+          uv run --no-sync ruff check src/
+          uv run --no-sync pytest -q

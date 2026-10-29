@@ -1,0 +1,15 @@
+{
+  "simulation_mode": false,
+  "robot_host": "172.16.0.2",
+  "realtime_config": "enforce",
+  "enable_motion": false,
+  "enable_gripper": false,
+  "sila_server": {
+    "hostname": "127.0.0.1",
+    "port": 50053,
+    "tls": false,
+    "name": "Franka Research 3 (Read Only)"
+  },
+  "cloud_server_endpoint": [],
+  "discovery": null
+}
