@@ -75,3 +75,7 @@ uv run ruff check src/
 ```
 
 See [Contributing](CONTRIBUTING.md).
+
+## License
+
+MIT License. Copyright (c) 2026 RIKEN. See [LICENSE](LICENSE).
