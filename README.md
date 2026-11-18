@@ -1,5 +1,10 @@
 # Franka Research 3 SiLA Connector
 
+> ⚠️ **Disclaimer**: This software is under active development. It comes with
+> **no warranty** and the authors accept **no liability** for any results or
+> damages. Use at your own risk, and verify safety before connecting to real
+> hardware.
+
 Control a [Franka Research 3](https://franka.de/) (FR3) arm and Franka Hand through **SiLA 2**, built with the [UniteLabs CDK](https://gitlab.com/unitelabs/cdk/python-cdk). The connector serves standard SiLA features (`SimulationController`, `LockController`, `MovementController`, `GripController`) next to FR3-specific joint, Cartesian and gripper control.
 
 A kinematic simulator is the default backend, so you can develop and test clients on macOS, Linux or Windows without a robot. The hardware backend uses [franky](https://github.com/TimSchneider42/franky) over the Franka Control Interface (FCI). It needs a Linux workstation with a real-time kernel.
